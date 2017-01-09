@@ -1,0 +1,24 @@
+# escape=`
+FROM golang:1.8-nanoserver
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+
+# REMARK - this is broken on Nano Server. Git downloads and works for basic commands, but `go get` fails:
+#  git submodule update --init --recursive
+#  package github.com/nats-io/nats: exit status 57
+
+ENV GIT_VERSION=2.11.0 `
+    GIT_SHA256=f31b0135e11e425555fb34779da3345ce8d32490fdd0a33b6f5ae8d74bae20b6 `
+    NATS_SERVER=nats
+
+# add Git
+RUN iwr -OutFile mingit.zip "https://github.com/git-for-windows/git/releases/download/v$($env:GIT_VERSION).windows.1/MinGit-$($env:GIT_VERSION)-64-bit.zip" -UseBasicParsing ;`
+    if ((Get-FileHash mingit.zip -Algorithm sha256).Hash -ne $env:GIT_SHA256) {exit 1} ; `
+    Expand-Archive mingit.zip -DestinationPath C:\git ; `
+    $env:PATH += 'C:\git\bin;C:\git\mingw64\bin;C:\git\usr\bin' ; `
+    Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\' -Name Path -Value $env:PATH ; `
+    Remove-Item -Path mingit.zip
+
+RUN go get github.com/nats-io/nats
+
+ENTRYPOINT ["go", "run", "$env:GOPATH\\src\\github.com\\nats-io\\nats\\examples\\nats-bench.go", "-s nats://$env:NATS_SERVER"]
+CMD ["-np 1", "-n 1000", "-ms 16", "nats-bench"]

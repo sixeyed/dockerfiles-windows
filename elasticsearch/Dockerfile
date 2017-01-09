@@ -17,15 +17,17 @@ RUN iwr -outfile zulu.zip "http://cdn.azul.com/zulu/bin/zulu$($env:ZULU_VERSION)
 
 # Elasticsearch
 ENV ES_VERSION="5.1.1" `
-    ES_HOME="c:\elasticsearch"
+    ES_HOME="c:\elasticsearch"     
 
 RUN iwr -outfile elasticsearch.zip "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$($env:ES_VERSION).zip"; `
     [System.IO.Compression.ZipFile]::ExtractToDirectory('elasticsearch.zip', 'c:\'); `
     mv "c:\elasticsearch-$($env:ES_VERSION)" 'c:\elasticsearch'; `
     rm elasticsearch.zip
 
-EXPOSE 9200 9300
 WORKDIR c:/elasticsearch
 COPY config ./config
+
+EXPOSE 9200 9300
+VOLUME c:/data
 
 CMD ".\bin\elasticsearch.bat"
