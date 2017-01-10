@@ -18,6 +18,14 @@ $ip = docker inspect -f '{{ .NetworkSettings.Networks.nat.IPAddress }}' elastics
 iwr "http://$($ip):9200"
 ```
 
+# Persisting data
+
+The image uses a Docker volume at `c:\data` to store the Elasticsearch data. To store data on the host instead, mount the host directory when you run a container:
+
+```PowerShell
+docker run -d -p 9200:9200 -p 9300:9300 -v c:\es-data:c:\data --name elasticsearch sixeyed/elasticsearch:nanoserver
+```
+
 ## JVM Memory Allocation
 
 Running a container may fail on Windows 10 hosts if they don't have enough RAM. The Hyper-V container doesn't allocate enough memory for the JVM and you'll see an error in the container logs:
