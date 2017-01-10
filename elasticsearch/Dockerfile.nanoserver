@@ -1,5 +1,5 @@
 # escape=`
-FROM microsoft/windowsservercore
+FROM microsoft/nanoserver
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
 WORKDIR c:/setup
@@ -15,7 +15,7 @@ RUN Invoke-WebRequest $('https://github.com/ojdkbuild/ojdkbuild/releases/downloa
     Expand-Archive openjdk.zip -DestinationPath C:\ ; `
     mv "C:\java-$($env:JAVA_ZIP_VERSION).ojdkbuild.windows.x86_64" 'c:\openjdk'; `
     $env:PATH = '{0}\bin;{1}' -f $env:JAVA_HOME, $env:PATH ; `
-    [Environment]::SetEnvironmentVariable('PATH', $env:PATH, [EnvironmentVariableTarget]::Machine) ; `
+    Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\' -Name Path -Value $env:PATH ; `
     Remove-Item -Path openjdk.zip
 
 # Elasticsearch
