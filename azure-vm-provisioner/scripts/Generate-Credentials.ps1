@@ -67,7 +67,7 @@ function New-SWRandomPassword {
         
         # Specifies an array of strings containing charactergroups from which the password will be generated.
         # At least one char from each group (string) will be used.
-        [String[]]$InputStrings = @('abcdefghijkmnpqrstuvwxyz', 'ABCEFGHJKLMNPQRSTUVWXYZ', '23456789', '!"#%&'),
+        [String[]]$InputStrings = @('abcdefghijkmnpqrstuvwxyz', 'ABCEFGHJKLMNPQRSTUVWXYZ', '23456789', '!@#%&'),
 
         # Specifies a string containing a character group from which the first character in the password will be generated.
         # Useful for systems which requires first char in password to be alphabetic.
