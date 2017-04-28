@@ -80,7 +80,7 @@ docker run --env-file azure-keys.env --env-file terraform-vars.env -v "$(pwd)\cr
 
 > The generated VM names, usernames and passwords are stored in `C:\out\{resource-group}_{region}_credentials.csv`. Mount the volume to save the creds on your host machine. That's what you'll distribute to the attendees.
 
-> Terraform doesn't inspect your Azure quotas, the deplopyment will just fail if it hits them. You'll need to bump your quotas if you want to create a lot of VMs (default is 10 cores per region). You can increase cores to 100 per VM size per region with a support request which gets automatically actioned. The limit of 60 public IP addresses per region will need a phone call to increase. 
+> Terraform doesn't inspect your Azure quotas, the deployment will just fail if it hits them. You'll need to bump your quotas if you want to create a lot of VMs (default is 10 cores per region). You can increase cores to 100 per VM size per region with a support request which gets automatically actioned. The limit of 60 public IP addresses per region will need a phone call to increase. 
 
 ## Destroy
 
