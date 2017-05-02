@@ -29,11 +29,11 @@ resource "azurerm_network_interface" "windows" {
 
 resource "azurerm_public_ip" "windows" {
   count                        = "${var.vm_count}"
-  domain_name_label            = "${var.dns_prefix}-win-${format("%02d", count.index + 1)}"
+  domain_name_label            = "${var.dns_prefix}-${format("%02d", count.index + 1)}"
   idle_timeout_in_minutes      = 30
   location                     = "${var.region}"
   name                         = "windows-${format("%02d", count.index + 1)}-publicip"
-  public_ip_address_allocation = "static"
+  public_ip_address_allocation = "dynamic"
   resource_group_name          = "${azurerm_resource_group.global.name}"
 }
 
