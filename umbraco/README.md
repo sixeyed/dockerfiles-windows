@@ -1,6 +1,6 @@
 # Umbraco 
 
-This is a stock install of Umbraco, which you can run in a Docker container on Windows.
+This is a stock install of [Umbraco](https://our.umbraco.org/), the open-source .NET Content Management System, which you can run in a Docker container on Windows.
 
 ## Usage 
 
