@@ -1,6 +1,6 @@
 # Umbraco Demo
 
-Run a stock Umbraco instance in a Docker container, add your website content, export the data and build it into a new Docker image.
+Run a stock [Umbraco instance in a Docker container](../umbraco/README.md), add your website content, export the data and build it into a new Docker image.
 
 The new image is Umbraco pre-configured with your website.
 
