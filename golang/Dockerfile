@@ -1,6 +1,6 @@
 # escape=`
 FROM microsoft/windowsservercore
-SHELL ["powershell", "-command", "$ErrorActionPreference = 'Stop';"]
+SHELL ["powershell", "-command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 WORKDIR /setup
 
 RUN Install-PackageProvider -Name chocolatey -Force; ` 

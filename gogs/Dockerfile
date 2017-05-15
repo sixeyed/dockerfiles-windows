@@ -1,4 +1,5 @@
 # escape=`
+<<<<<<< HEAD
 FROM microsoft/windowsservercore:10.0.14393.693
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
@@ -54,3 +55,19 @@ CMD ["gogs", "web"]
 
 # #!/usr/bin/env bash
 # "C:/gogs/gogs.exe" hook --config='C:/gogs/custom/conf/app.ini' pre-receive
+=======
+FROM microsoft/windowsservercore
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+
+RUN Install-PackageProvider -Name chocolatey -Force; `
+    Install-Package -Name git -Provider chocolatey -Force; `
+    Install-Package -Name openssh -Provider chocolatey -Force
+
+EXPOSE 22 3000
+VOLUME c:/gogs/data c:/gogs/logs
+
+WORKDIR c:/gogs
+COPY ./gogs/ .
+
+CMD ["gogs", "web"]
+>>>>>>> 9a4480ffe1f0b3f45b7c5fcbbb2475a22b9d61a5
