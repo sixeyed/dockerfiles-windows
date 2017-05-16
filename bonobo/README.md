@@ -15,7 +15,7 @@ You can test out the latest version with:
 docker run -d -p 80:80 sixeyed/bonobo
 ```
 
-Then browse to _http://CONTAINER-IP/Bonobo.Git.Server. The default credentials are admin/admin.
+Then browse to _http://CONTAINER-IP/Bonobo.Git.Server_. The default credentials are admin/admin.
 
 You'll probably want to run a specific version of Bonobo, and have the data files stored on the host:
 

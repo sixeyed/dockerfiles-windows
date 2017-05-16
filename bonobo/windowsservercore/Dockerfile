@@ -1,6 +1,6 @@
 # escape=`
 FROM microsoft/aspnet:windowsservercore-10.0.14393.1198
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ENV BONOBO_VERSION="6_1_0" `
     BONOBO_PATH="C:\bonobo\Bonobo.Git.Server" `
