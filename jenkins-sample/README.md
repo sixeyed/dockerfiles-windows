@@ -1,9 +1,8 @@
-# Jenkins
+# Jenkins Sample
 
-Jenkins is an automation server - for CI/CD, scheduled jobs etc.
+Jenkins uses a plug-in model for additional features. Plug-ins may have dependencies that need to be installed outside of Jenkins.
 
-- [Jenkins](https://jenkins.io/)
-- [Source Code on GitHub](https://github.com/jenkinsci/jenkins)
+This is a sample image that builds from [sixeyed/jenkins](https://github.com/sixeyed/dockerfiles-windows/tree/master/jenkins) and adds the Git and Docker clients, to support Jenkins plugins like [Git](https://plugins.jenkins.io/git) and [Docker Build & Push](https://github.com/jenkinsci/docker-build-publish-plugin/blob/master/README.md).
 
 ## Usage
 
@@ -12,15 +11,15 @@ This is a Windows Server Core image. It will run on Docker in Windows 10 or Wind
 You can test out the latest version with:
 
 ```
-docker run -d -p 8080:8080 sixeyed/jenkins
+docker run -d -p 8080:8080 sixeyed/jenkins-sample
 ```
 
 Then browse to _http://CONTAINER-IP:8080_. The startup credentials are in the logs for your Jenkins container.
 
-You'll probably want to run a specific version of Jenkins, and have the data files stored on the host:
+You'll probably want to run a specific version, and have the data files stored on the host:
 
 ```
-docker run -d -p 8080:8080 -v c:\jenkins:c:\data sixeyed/jenkins:2.46.2
+docker run -d -p 8080:8080 -v c:\jenkins:c:\data sixeyed/jenkins-sample:2.46.2_git-2.13.0_docker-17.05.0-ce
 ```
 
 ### Notes
