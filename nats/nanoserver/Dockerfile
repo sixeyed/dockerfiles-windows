@@ -11,7 +11,7 @@ RUN cd C:\gopath\src\github.com\nats-io\gnatsd; `
     go test -v ./...
 
 # NATS image
-FROM microsoft/windowsservercore
+FROM microsoft/nanoserver
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 WORKDIR C:\gnatsd

@@ -16,3 +16,4 @@ RUN New-Item -Type Directory 'C:\docker'; `
 	[Environment]::SetEnvironmentVariable('PATH', $env:PATH, [EnvironmentVariableTarget]::Machine)
 
 COPY --from=docker C:\docker\docker.exe C:\docker
+COPY --from=docker C:\docker\docker-compose.exe C:\docker

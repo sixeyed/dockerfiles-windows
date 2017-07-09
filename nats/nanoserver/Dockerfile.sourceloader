@@ -1,9 +1,0 @@
-# escape=`
-FROM golang:1.8-windowsservercore
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
-
-VOLUME C:\src
-
-CMD go get github.com/nats-io/gnatsd; `
-    go get github.com/nats-io/go-nats; `
-    cp -r -Force C:\gopath\src c:\src
