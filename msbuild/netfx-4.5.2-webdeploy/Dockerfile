@@ -1,5 +1,5 @@
 # escape=`
-FROM sixeyed/msbuild:netfx-4.5.2-10.0.14393.1198
+FROM sixeyed/msbuild:netfx-4.5.2-10.0.14393.1480
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 RUN Install-Package -Name webdeploy -RequiredVersion 3.6.0 -Force; `

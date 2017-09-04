@@ -1,5 +1,5 @@
 # escape=`
-FROM microsoft/windowsservercore:10.0.14393.1198
+FROM microsoft/windowsservercore:10.0.14393.1480
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 RUN Install-PackageProvider -Name chocolatey -RequiredVersion 2.8.5.130 -Force; `

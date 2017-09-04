@@ -1,7 +1,7 @@
 # escape=`
 FROM microsoft/dotnet:1.1.2-sdk-nanoserver AS dotnet
 
-FROM sixeyed/msbuild:netfx-4.5.2-10.0.14393.1198 
+FROM sixeyed/msbuild:netfx-4.5.2-10.0.14393.1480
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 # see https://github.com/Microsoft/msbuild/issues/1697
