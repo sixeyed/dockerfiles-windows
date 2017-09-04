@@ -60,7 +60,7 @@ Some things to note:
 Adding these to `terraform-vars.env` creates 10 VMs, sized D4_V2:
 
 ```
-TF_VAR_vm_count="10"
+TF_VAR_vm_count=10
 TF_VAR_vm_size="Standard_D4_v2"
 ```
 
