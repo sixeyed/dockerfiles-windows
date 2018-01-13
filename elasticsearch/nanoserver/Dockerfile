@@ -1,23 +1,36 @@
 # escape=`
-FROM openjdk:8-jdk-nanoserver
+FROM microsoft/windowsservercore AS downloader
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-# Elasticsearch
-ENV ES_VERSION="5.2.0" `
-    ES_SHA1="243cce802055a06e810fc1939d9f8b22ee68d227" `
+ENV ES_VERSION="5.6.0" `
     ES_HOME="C:\elasticsearch"
 
-RUN Invoke-WebRequest -outfile elasticsearch.zip "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$($env:ES_VERSION).zip" -UseBasicParsing; `
-    if ((Get-FileHash elasticsearch.zip -Algorithm sha1).Hash -ne $env:ES_SHA1) {exit 1} ; `
+WORKDIR C:\elasticsearch
+RUN Invoke-WebRequest "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$($env:ES_VERSION).zip.sha1" -OutFile 'elasticsearch.zip.sha1' -UseBasicParsing; `
+    $env:ES_SHA1 = Get-Content -Raw elasticsearch.zip.sha1; `
+    Invoke-WebRequest "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$($env:ES_VERSION).zip" -OutFile 'elasticsearch.zip' -UseBasicParsing; `
+    if ((Get-FileHash elasticsearch.zip -Algorithm sha1).Hash.ToLower() -ne $env:ES_SHA1) {exit 1}; `
     Expand-Archive elasticsearch.zip -DestinationPath C:\ ; `
-    Move-Item C:/elasticsearch-$($env:ES_VERSION) $env:ES_HOME; `
-    Remove-Item elasticsearch.zip
+    Move-Item c:/elasticsearch-$($env:ES_VERSION) $env:ES_HOME;
 
+# Elasticsearch
+FROM openjdk:8-nanoserver-sac2016
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
+
+ENV ES_VERSION="5.6.0" `
+    ES_HOME="C:\elasticsearch"
+
+# Volume and drive mount
 VOLUME C:\data
+RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'G:' -Value '\??\C:\data' -Type String    
+   
+EXPOSE 9200 9300
+SHELL ["cmd", "/S", "/C"]
+CMD ".\bin\elasticsearch.bat"
 
-# REMARKS - DNS and mount tweaks needed for Windows
-RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name ServerPriorityTimeLimit -Value 0 -Type DWord; `
-    Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'G:' -Value '\??\C:\data' -Type String    
+WORKDIR C:\elasticsearch
+COPY --from=downloader C:\elasticsearch\ .
+COPY config ./config
 
 HEALTHCHECK --interval=5s `
  CMD powershell -command `
@@ -27,10 +40,3 @@ HEALTHCHECK --interval=5s `
      if ($health -eq 'green' -or $health -eq 'yellow') { return 0 } `
      else { return 1 }; `
     } catch { return 1 }
-
-EXPOSE 9200 9300
-WORKDIR C:\elasticsearch
-COPY config ./config
-
-SHELL ["cmd", "/S", "/C"]
-CMD ".\bin\elasticsearch.bat"
