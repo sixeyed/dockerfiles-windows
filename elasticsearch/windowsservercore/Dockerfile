@@ -5,7 +5,6 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 ENV ES_VERSION="5.6.0" `
     ES_HOME="C:\elasticsearch"
 
-WORKDIR C:\elasticsearch
 RUN Invoke-WebRequest "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$($env:ES_VERSION).zip.sha1" -OutFile 'elasticsearch.zip.sha1' -UseBasicParsing; `
     $env:ES_SHA1 = Get-Content -Raw elasticsearch.zip.sha1; `
     Invoke-WebRequest "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$($env:ES_VERSION).zip" -OutFile 'elasticsearch.zip' -UseBasicParsing; `
@@ -28,7 +27,7 @@ EXPOSE 9200 9300
 SHELL ["cmd", "/S", "/C"]
 CMD ".\bin\elasticsearch.bat"
 
-WORKDIR C:\elasticsearch
+WORKDIR $ES_HOME
 COPY --from=downloader C:\elasticsearch\ .
 COPY config ./config
 
