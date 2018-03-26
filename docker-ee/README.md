@@ -11,5 +11,5 @@ This is a Windows Server Core image. It will run on Docker in Windows 10 or Wind
 You can test out the latest version with:
 
 ```
-docker run -it sixeyed/docker-ee
+docker run -it sixeyed/docker
 ```
