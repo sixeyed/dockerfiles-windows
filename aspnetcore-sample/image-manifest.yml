@@ -1,0 +1,12 @@
+image: sixeyed/aspnet-core-sample
+manifests:
+  -
+    image: sixeyed/aspnet-core-sample:stretch
+    platform:
+      architecture: amd64
+      os: linux
+  -
+    image: sixeyed/aspnet-core-sample:nanoserver
+    platform:
+      architecture: amd64
+      os: windows
