@@ -1,12 +1,13 @@
-image: sixeyed/aspnet-core-sample
+image: sixeyed/aspnetcore-sample:latest
+tags: ['2.0']
 manifests:
   -
-    image: sixeyed/aspnet-core-sample:stretch
+    image: sixeyed/aspnetcore-sample:stretch
     platform:
       architecture: amd64
       os: linux
   -
-    image: sixeyed/aspnet-core-sample:nanoserver
+    image: sixeyed/aspnetcore-sample:nanoserver
     platform:
       architecture: amd64
       os: windows
