@@ -1,9 +1,9 @@
 # escape=`
-FROM microsoft/windowsservercore:10.0.14393.1066
+FROM microsoft/windowsservercore:ltsc2016
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ENV TERRAFORM_VERSION="0.9.4" `
-    TERRAFORM_SHA256="d7c220da2f0b9a52d686cbb7278d27fba3af8dd02d785dfe33c4c6e96df27100"
+ENV TERRAFORM_VERSION="0.11.7" `
+    TERRAFORM_SHA256="5fd003ef20f7a6a85ced4ad30bf95698afd4d0bfd477541583ff014e96026d6c"
 
 RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; `
     iwr -outfile terraform.zip "https://releases.hashicorp.com/terraform/$($env:TERRAFORM_VERSION)/terraform_$($env:TERRAFORM_VERSION)_windows_amd64.zip" -UseBasicParsing; `
