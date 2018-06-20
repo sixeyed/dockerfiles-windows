@@ -14,7 +14,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tl
     Invoke-WebRequest "https://github.com/docker/compose/releases/download/$($env:COMPOSE_VERSION)/docker-compose-Windows-x86_64.exe.sha256" -OutFile 'docker-compose.exe.sha256' -UseBasicParsing; `
     Invoke-WebRequest "https://github.com/docker/compose/releases/download/$($env:COMPOSE_VERSION)/docker-compose-Windows-x86_64.exe" -OutFile 'docker-compose.exe' -UseBasicParsing;	
 
-RUN $env:DOCKER_COMPOSE_SHA256=$(Get-Content -Raw docker-compose.exe.sha256); `
+RUN $env:DOCKER_COMPOSE_SHA256=$(Get-Content -Raw docker-compose.exe.sha256).Split(' ')[0]; `
 	if ((Get-FileHash docker-compose.exe -Algorithm sha256).Hash.ToLower().Trim() -ne $env:DOCKER_COMPOSE_SHA256.ToLower().Trim()) {exit 1} ;`
 	Move-Item 'docker-compose.exe' $env:DOCKER_PATH
 
