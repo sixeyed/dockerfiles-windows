@@ -2,9 +2,9 @@
 FROM microsoft/windowsservercore:ltsc2016 AS installer
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ARG DOCKER_VERSION="17.06.2-ee-13" `
-    COMPOSE_VERSION="1.21.2" `
-    DOCKER_PATH="C:\Program Files\docker"
+ARG DOCKER_VERSION="17.06.2-ee-13"
+ARG COMPOSE_VERSION="1.21.2"
+ARG DOCKER_PATH="C:\Program Files\docker"
 
 RUN Install-PackageProvider nuget -force; `
     Install-Module DockerMsftProvider -Force; `
