@@ -1,17 +1,18 @@
 # escape=`
-FROM microsoft/windowsservercore
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
+FROM microsoft/windowsservercore:ltsc2016 AS installer
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+
+ENV NGINX_VERSION="1.15.0"
+
+RUN Invoke-WebRequest -OutFile nginx.zip -UseBasicParsing "http://nginx.org/download/nginx-$($env:NGINX_VERSION).zip"; `
+    Expand-Archive nginx.zip -DestinationPath C:\ ; `
+    Rename-Item "C:\nginx-$($env:NGINX_VERSION)" C:\nginx;
+
+# NGINX
+FROM microsoft/windowsservercore:ltsc2016
 
 EXPOSE 80 443
-ENV NGINX_VERSION 1.11.6
+WORKDIR C:\nginx
+CMD "C:\nginx\nginx.exe"
 
-RUN Add-Type -AssemblyName System.IO.Compression.FileSystem ; `
-    iwr -outfile nginx.zip "http://nginx.org/download/nginx-$($env:NGINX_VERSION).zip; `
-    [System.IO.Compression.ZipFile]::ExtractToDirectory('nginx.zip', 'c:\'); `
-    Rename-Item "nginx-$($env:NGINX_VERSION)" nginx; `
-    rm nginx.zip
-
-WORKDIR c:/nginx
-COPY nginx.conf ./conf/
-
-CMD .\nginx
+COPY --from=installer C:\nginx\ .
