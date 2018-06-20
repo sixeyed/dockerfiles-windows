@@ -1,8 +1,8 @@
 # escape=`
+ARG JENKINS_VERSION="2.121.1"
+
 FROM microsoft/windowsservercore AS installer
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
-
-ARG JENKINS_VERSION="2.121.1"
 
 WORKDIR C:\jenkins
 RUN Write-Host "Downloading Jenkins version: $env:JENKINS_VERSION"; `

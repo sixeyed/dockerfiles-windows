@@ -1,8 +1,8 @@
 # escape=`
+ARG NGINX_VERSION="1.15.0"
+
 FROM microsoft/windowsservercore:ltsc2016 AS installer
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
-
-ARG NGINX_VERSION="1.15.0"
 
 RUN Write-Host "Downloading Nginx version: $env:NGINX_VERSION"; `
     Invoke-WebRequest -OutFile nginx.zip -UseBasicParsing "http://nginx.org/download/nginx-$($env:NGINX_VERSION).zip"; `
