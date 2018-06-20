@@ -2,9 +2,9 @@
 FROM microsoft/windowsservercore:ltsc2016 AS installer
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ARG GIT_VERSION="2.17.1" `
-	GIT_RELEASE_NUMBER="2" `
-    GIT_DOWNLOAD_SHA256="f3aa489a67a600aefa8f20ee55f8977319bd3da568afaaadcd1b2e2cf21c575c"
+ARG GIT_VERSION="2.17.1"
+ARG GIT_RELEASE_NUMBER="2"
+ARG GIT_DOWNLOAD_SHA256="f3aa489a67a600aefa8f20ee55f8977319bd3da568afaaadcd1b2e2cf21c575c"
 
 RUN Write-Host "Downloading Git version: $env:GIT_VERSION, release: $env:GIT_RELEASE_NUMBER"; `
 	[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; `
@@ -17,8 +17,8 @@ RUN Write-Host "Downloading Git version: $env:GIT_VERSION, release: $env:GIT_REL
 FROM microsoft/windowsservercore:ltsc2016
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
-ENV GIT_PATH="C:\git\cmd;C:\git\mingw64\bin;C:\git\usr\bin;" `
-	GIT_VERSION ${GIT_VERSION}
+ENV GIT_VERSION=${GIT_VERSION} `
+    GIT_PATH="C:\git\cmd;C:\git\mingw64\bin;C:\git\usr\bin;" 
 
 RUN $env:PATH = $env:GIT_PATH + $env:PATH; `
 	[Environment]::SetEnvironmentVariable('PATH', $env:PATH, [EnvironmentVariableTarget]::Machine)
