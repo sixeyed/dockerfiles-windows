@@ -4,10 +4,6 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 
 ARG JENKINS_VERSION="2.121.1"
 
-http://mirrors.jenkins.io/war-stable/latest/jenkins.war
-http://mirrors.jenkins.io/war/latest/jenkins.war
-http://mirrors.jenkins.io/war-stable/2.121.1/jenkins.war
-
 WORKDIR C:\jenkins
 RUN Write-Host "Downloading Jenkins version: $env:JENKINS_VERSION"; `
     Invoke-WebRequest "http://mirrors.jenkins.io/war-stable/$($env:JENKINS_VERSION)/jenkins.war.sha256" -OutFile 'jenkins.war.sha256' -UseBasicParsing; `
