@@ -1,10 +1,10 @@
 # escape=`
-FROM microsoft/windowsservercore:ltsc2016 AS installer
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
-
 ARG DOCKER_VERSION="17.06.2-ee-13"
 ARG COMPOSE_VERSION="1.21.2"
 ARG DOCKER_PATH="C:\Program Files\docker"
+
+FROM microsoft/windowsservercore:ltsc2016 AS installer
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 RUN Install-PackageProvider nuget -force; `
     Install-Module DockerMsftProvider -Force; `
