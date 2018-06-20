@@ -2,19 +2,25 @@
 FROM microsoft/windowsservercore AS installer
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ENV JENKINS_VERSION="2.107.1"
+ARG JENKINS_VERSION="2.121.1"
+
+http://mirrors.jenkins.io/war-stable/latest/jenkins.war
+http://mirrors.jenkins.io/war/latest/jenkins.war
+http://mirrors.jenkins.io/war-stable/2.121.1/jenkins.war
 
 WORKDIR C:\jenkins
-RUN Invoke-WebRequest "https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/$($env:JENKINS_VERSION)/jenkins-war-$($env:JENKINS_VERSION).war.sha256" -OutFile 'jenkins.war.sha256' -UseBasicParsing; `
+RUN Write-Host "Downloading Jenkins version: $env:JENKINS_VERSION"; `
+    Invoke-WebRequest "http://mirrors.jenkins.io/war-stable/$($env:JENKINS_VERSION)/jenkins.war.sha256" -OutFile 'jenkins.war.sha256' -UseBasicParsing; `
     $env:JENKINS_SHA256 = Get-Content -Raw jenkins.war.sha256; `
-    Invoke-WebRequest "https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/$($env:JENKINS_VERSION)/jenkins-war-$($env:JENKINS_VERSION).war" -OutFile 'jenkins.war' -UseBasicParsing; `
+    Invoke-WebRequest "http://mirrors.jenkins.io/war-stable/$($env:JENKINS_VERSION)/jenkins.war" -OutFile 'jenkins.war' -UseBasicParsing; `
     if ((Get-FileHash jenkins.war -Algorithm sha256).Hash.ToLower() -ne $env:JENKINS_SHA256) {exit 1}
 
 # Jenkins
 FROM openjdk:8-windowsservercore-ltsc2016
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
-ENV JENKINS_HOME="G:\jenkins" `
+ENV JENKINS_VERSION=${JENKINS_VERSION} `
+    JENKINS_HOME="G:\jenkins" `
     VOLUME_PATH="C:\data"
 
 VOLUME ${VOLUME_PATH}

@@ -1,6 +1,6 @@
 param(    
     [string] $fullTag,
-    [string] $osTag='windowsservercore',
+    [string] $osTag='windowsservercore-ltsc2016',
     [string] $localRegistry='registry.sixeyed:5000'    
 )
 
