@@ -8,7 +8,7 @@ ARG DOCKER_PATH="C:\Program Files\docker"
 
 RUN Install-PackageProvider nuget -force; `
     Install-Module DockerMsftProvider -Force; `
-	Install-Package Docker -RequiredVersion $env:DOCKER_VERSION -ProviderName DockerProvider -Force
+	Install-Package Docker -RequiredVersion $env:DOCKER_VERSION -ProviderName DockerMsftProvider -Force
 
 RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; `
     Invoke-WebRequest "https://github.com/docker/compose/releases/download/$($env:COMPOSE_VERSION)/docker-compose-Windows-x86_64.exe.sha256" -OutFile 'docker-compose.exe.sha256' -UseBasicParsing; `
