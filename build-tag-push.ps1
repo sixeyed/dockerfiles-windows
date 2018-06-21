@@ -42,7 +42,7 @@ Write-Host "* Building image: $fullTag, with args: $buildArg"
 
 if (Test-Path ..\..\test.ps1) {
     Write-Host '** Executing test script'
-    . ..\..\test.ps1 -imageName $fullTag -dockerConfig $dockerConfig
+    ..\..\test.ps1 -imageTag $fullTag -dockerConfig $dockerConfig
     if ($LastExitCode -ne 0) {
         exit 1
     }

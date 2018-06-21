@@ -1,12 +1,12 @@
 param(    
-    [string] $imageName='sixeyed/nginx',
+    [string] $imageTag='sixeyed/nginx',
     [object[]] $dockerConfig
 )
 
 Write-Host "config: $config"
 
-Write-Host "Running container from image: $imageName"
-$id = docker $dockerConfig container run -d -P $imageName
+Write-Host "Running container from image: $imageTag"
+$id = docker $dockerConfig container run -d -P $imageTag
 $ip = docker $dockerConfig container inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' $id
 
 Write-Host "Fetching HTTP at container IP: $ip"

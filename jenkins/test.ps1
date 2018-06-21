@@ -1,9 +1,9 @@
 param(    
-    [string] $imageName='sixeyed/jenkins'
+    [string] $imageTag='sixeyed/jenkins'
 )
 
-Write-Host "Running container from image: $imageName"
-$id = docker $config container run -d -P $imageName
+Write-Host "Running container from image: $imageTag"
+$id = docker $config container run -d -P $imageTag
 $ip = docker container inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' $id
 
 Write-Host "Fetching HTTP at container IP: $ip"
