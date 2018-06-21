@@ -2,7 +2,8 @@ param(
     [string] $imageVersion='',
     [string] $registryUser='sixeyed',    
     [string] $localRegistry='registry.sixeyed:5000',    
-    [string] $buildArgs=''
+    [string] $buildArgs='',
+    [object[]] $dockerConfig
 )
 
 # builds and pushes Docker images
@@ -37,11 +38,11 @@ foreach ($arg in $buildArgsExpanded){
 }
 
 Write-Host "* Building image: $fullTag, with args: $buildArg"
-& docker $config image build $buildArg -t $fullTag .
+& docker $dockerConfig image build $buildArg -t $fullTag .
 
 if (Test-Path ..\..\test.ps1) {
     Write-Host '** Executing test script'
-    ..\..\test.ps1 -imageName $fullTag
+    . ..\..\test.ps1 -imageName $fullTag -dockerConfig $dockerConfig
     if ($LastExitCode -ne 0) {
         exit 1
     }
@@ -59,7 +60,7 @@ foreach ($tag in $tags) {
     foreach ($registry in $registries){
         $registryTag = "$($registry)$tag"
         Write-Host "** Pushing $registryTag"
-        & docker $config image tag $fullTag $registryTag
-        & docker $config image push $registryTag
+        & docker $dockerConfig image tag $fullTag $registryTag
+        & docker $dockerConfig image push $registryTag
     }
 }
