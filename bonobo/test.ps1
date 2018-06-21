@@ -10,7 +10,7 @@ $id = docker $dockerConfig container run -d -P $imageTag
 $ip = docker $dockerConfig container inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' $id
 
 Write-Host "Fetching HTTP at container IP: $ip"
-$response = (iwr -useb "http://$(ip)/Bonobo.Git.Server")
+$response = (iwr -useb "http://$($ip)/Bonobo.Git.Server")
 
 Write-Host "Removing container ID: $id"
 docker $dockerConfig rm -f $id
