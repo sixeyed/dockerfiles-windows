@@ -1,9 +1,8 @@
 # escape=`
-ARG BONOBO_VERSION="6.3.0"
-
 FROM microsoft/windowsservercore:ltsc2016 AS installer
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
+ARG BONOBO_VERSION="6.3.0"
 RUN Write-Host "Downloading Bonobo version: $env:BONOBO_VERSION"; `
     Invoke-WebRequest "https://bonobogitserver.com/resources/releases/$($env:BONOBO_VERSION.Replace('.', '_')).zip" -OutFile 'bonobo.zip' -UseBasicParsing; `
     Expand-Archive bonobo.zip C:\bonobo; `
@@ -13,6 +12,7 @@ RUN Write-Host "Downloading Bonobo version: $env:BONOBO_VERSION"; `
 FROM microsoft/aspnet:4.7.2-windowsservercore-ltsc2016
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
+ARG BONOBO_VERSION="6.3.0"
 ENV BONOBO_VERSION=${BONOBO_VERSION} `
     BONOBO_PATH="C:\bonobo\Bonobo.Git.Server" `
     DATA_PATH="C:\data"

@@ -1,10 +1,10 @@
 # escape=`
+FROM microsoft/windowsservercore:ltsc2016 AS installer
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+
 ARG GIT_VERSION="2.17.1"
 ARG GIT_RELEASE_NUMBER="2"
 ARG GIT_DOWNLOAD_SHA256="52e611a411cd58eaaab8218bb917cb4410b0c5733f234be6e581c6a9821b30ea"
-
-FROM microsoft/windowsservercore:ltsc2016 AS installer
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 RUN Write-Host "Downloading Git version: $($env:GIT_VERSION), release: $($env:GIT_RELEASE_NUMBER)"; `
 	[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; `
@@ -18,6 +18,7 @@ RUN if ((Get-FileHash git.zip -Algorithm sha256).Hash -ne $env:GIT_DOWNLOAD_SHA2
 FROM microsoft/windowsservercore:ltsc2016
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
+ARG GIT_VERSION="2.17.1"
 ENV GIT_VERSION=${GIT_VERSION} `
     GIT_PATH="C:\git\cmd;C:\git\mingw64\bin;C:\git\usr\bin;" 
 
