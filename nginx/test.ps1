@@ -3,7 +3,7 @@ param(
     [object[]] $dockerConfig
 )
 
-Write-Host "config: $config"
+Write-Host "Test script using Docker config: $dockerConfig"
 
 Write-Host "Running container from image: $imageTag"
 $id = docker $dockerConfig container run -d -P $imageTag
