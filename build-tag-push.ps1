@@ -36,9 +36,18 @@ foreach ($arg in $buildArgsExpanded){
     $buildArg += "--build-arg", $arg
 }
 
-Write-Host "** Building image: $fullTag, with args: $buildArg"
+Write-Host "* Building image: $fullTag, with args: $buildArg"
 & docker $config image build $buildArg -t $fullTag .
 
+if (Test-Path ..\..\test.ps1) {
+    Write-Host '** Executing test script'
+    ..\..\test.ps1 -imageName $fullTag
+    if ($LastExitCode -ne 0) {
+        exit 1
+    }
+}
+
+Write-Host "* Pushing image tags for: $fullTag"
 $tags = @($fullTag,
           "$($registryUser)/$($imageName):$($osName)-$($branchName)",
           "$($registryUser)/$($imageName):latest")
