@@ -9,8 +9,11 @@ Write-Host "Running container from image: $imageTag"
 $id = docker $dockerConfig container run -d -P $imageTag
 $ip = docker $dockerConfig container inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' $id
 
+Write-Host "Waiting for Jenkins to start"
+Start-Sleep -Seconds 5
+
 Write-Host "Fetching HTTP at container IP: $ip"
-$response = (iwr -useb "http://$($ip):8080")
+$response = (iwr -useb "http://$($ip):8080/login")
 
 Write-Host "Removing container ID: $id"
 docker $dockerConfig rm -f $id
