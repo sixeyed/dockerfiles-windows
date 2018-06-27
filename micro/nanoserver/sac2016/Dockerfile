@@ -20,6 +20,6 @@ ARG MICRO_PATH="C:\micro"
 ENV MICRO_PATH=${MICRO_PATH}
 
 RUN $env:PATH = $env:MICRO_PATH + ';' + $env:PATH; `
-	[Environment]::SetEnvironmentVariable('PATH', $env:PATH)
+	setx PATH $env:PATH /M
 
 COPY --from=installer ${MICRO_PATH} ${MICRO_PATH}
