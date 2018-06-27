@@ -1,6 +1,6 @@
 # escape=`
 FROM microsoft/nanoserver:sac2016 AS installer
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG MICRO_VERSION="1.4.0"
 ARG MICRO_PATH="C:\micro"
@@ -14,6 +14,7 @@ RUN Expand-Archive micro.zip -DestinationPath C:\ ; `
 
 # Micro
 FROM microsoft/nanoserver:sac2016
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
 ARG MICRO_PATH="C:\micro"
 ENV MICRO_PATH=${MICRO_PATH}
