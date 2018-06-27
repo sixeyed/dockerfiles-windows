@@ -10,7 +10,7 @@ $id = docker $dockerConfig container run -d -P $imageTag
 $ip = docker $dockerConfig container inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' $id
 
 Write-Host "Waiting for Jenkins to start"
-Start-Sleep -Seconds 5
+Start-Sleep -Seconds 10
 
 Write-Host "Fetching HTTP at container IP: $ip"
 $response = (iwr -useb "http://$($ip):8080/login")
