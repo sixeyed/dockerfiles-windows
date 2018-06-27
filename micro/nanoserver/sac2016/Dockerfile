@@ -10,7 +10,7 @@ RUN Write-Host "Downloading Micro version: $env:MICRO_VERSION"; `
     Invoke-WebRequest -OutFile micro.zip -UseBasicParsing "https://github.com/zyedidia/micro/releases/download/v$($env:MICRO_VERSION)/micro-$($env:MICRO_VERSION)-win64.zip";
 
 RUN Expand-Archive micro.zip -DestinationPath C:\ ; `
-    Rename-Item "C:\micro-$($env:MICRO_VERSION)" $env:MICRO_VERSION
+    Rename-Item "C:\micro-$($env:MICRO_VERSION)" $env:MICRO_PATH
 
 # Micro
 FROM microsoft/nanoserver:sac2016
