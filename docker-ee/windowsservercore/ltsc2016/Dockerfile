@@ -2,13 +2,14 @@
 FROM microsoft/windowsservercore:ltsc2016 AS installer
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ARG DOCKER_VERSION="17.06.2-ee-13"
-ARG COMPOSE_VERSION="1.21.2"
+ARG DOCKER_VERSION="18.03.1-ee-2"
+ARG COMPOSE_VERSION="1.22.0"
 ENV DOCKER_PATH="C:\Program Files\docker"
 
 RUN Install-PackageProvider nuget -force; `
-    Install-Module DockerMsftProvider -Force; `
-	Install-Package Docker -RequiredVersion $env:DOCKER_VERSION -ProviderName DockerMsftProvider -Force
+    Install-Module DockerMsftProvider -Force
+
+RUN Install-Package Docker -RequiredVersion $env:DOCKER_VERSION -ProviderName DockerMsftProvider -Force
 
 RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; `
     Invoke-WebRequest "https://github.com/docker/compose/releases/download/$($env:COMPOSE_VERSION)/docker-compose-Windows-x86_64.exe.sha256" -OutFile 'docker-compose.exe.sha256' -UseBasicParsing; `
