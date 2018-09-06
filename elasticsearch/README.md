@@ -35,11 +35,10 @@ Error occurred during initialization of VM
 Could not reserve enough space for object heap
 ```
 
-You can force the memory allocation using the `--memory` option, on my 8GB Surface I find 3GB is enough to get Elasticsearch running:
+This doesn't happen with the Nano Server image, but it does with the Windows Server Core image on Windows 10. You can force the memory allocation using the `--memory` option, on my 8GB Surface I find 2GB is enough to get Elasticsearch running:
 
 ```
-docker run -d -p 9200:9200 -p 9300:9300 -m 3GB --name elasticsearch sixeyed/elasticsearch:nanoserver
+docker run -d -p 9200:9200 -p 9300:9300 -m 2GB --name elasticsearch sixeyed/elasticsearch:windowsservercore
 ```
 
 > Windows Server 2016 is fine.
-
