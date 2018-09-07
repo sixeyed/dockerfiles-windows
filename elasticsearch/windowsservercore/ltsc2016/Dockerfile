@@ -4,7 +4,7 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 
 ARG ES_VERSION="5.6.11"
 ENV ES_HOME="C:\elasticsearch" `
-    ES_ROOT_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss"
+    ES_ROOT_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch"
 
 RUN Invoke-WebRequest "$env:ES_ROOT_URL-$env:ES_VERSION.zip.sha512" -OutFile 'elasticsearch.zip.sha' -UseBasicParsing; `
     $env:ES_SHA = (Get-Content -Raw elasticsearch.zip.sha).Split(' ')[0]; `
