@@ -10,7 +10,7 @@ $id = docker $dockerConfig container run -d -P -m 2G $imageTag
 $ip = docker $dockerConfig container inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' $id
 
 Write-Host 'Waiting for Elasticsearch to start'
-Start-Sleep -Seconds 30
+Start-Sleep -Seconds 40
 
 Write-Host "Fetching HTTP at container IP: $ip"
 $response = iwr -useb "http://$($ip):9200/_cat/health"
