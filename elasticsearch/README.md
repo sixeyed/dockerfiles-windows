@@ -1,6 +1,10 @@
 # Elasticsearch
 
-Windows Nano Server image for [Elasticsearch](http://elastic.co).
+Windows Server Core and Nano Server images for [Elasticsearch](http://elastic.co).
+
+> Ths images uses version 5.6 of Elasticsearch. [Later versions do not work with Docker volumes in Windows containers](https://github.com/elastic/elasticsearch/issues/28590). 
+
+> They also specify very small memory allocations (see the `ES_JAVA_OPTS` environment variable in the [Dockerfile](./nanoserver/sac2016/Dockerfile), so they're suitable for dev. You should override that value for more realistic environments.
 
 # Usage
 
@@ -28,14 +32,14 @@ docker run -d -p 9200:9200 -p 9300:9300 -v c:\es-data:c:\data --name elasticsear
 
 ## JVM Memory Allocation
 
-Running a container may fail on Windows 10 hosts if they don't have enough RAM. The Hyper-V container doesn't allocate enough memory for the JVM and you'll see an error in the container logs:
+Running a container may fail on **Windows 10** hosts if they don't have enough RAM. The Hyper-V container doesn't allocate enough memory for the JVM and you'll see an error in the container logs:
 
 ```
 Error occurred during initialization of VM
 Could not reserve enough space for object heap
 ```
 
-This doesn't happen with the Nano Server image, but it does with the Windows Server Core image on Windows 10. You can force the memory allocation using the `--memory` option, on my 8GB Surface I find 2GB is enough to get Elasticsearch running:
+This doesn't happen with the Nano Server image, but it does with the Windows Server Core image on Windows 10. You can force the memory allocation using the `--memory` option. On my 8GB Surface I find 2GB is enough to get Elasticsearch running:
 
 ```
 docker run -d -p 9200:9200 -p 9300:9300 -m 2GB --name elasticsearch sixeyed/elasticsearch:windowsservercore

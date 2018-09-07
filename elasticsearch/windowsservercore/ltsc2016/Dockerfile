@@ -19,7 +19,7 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
 ARG ES_VERSION="5.6.11"
 ENV ES_VERSION=${ES_VERSION} `
-     ES_HOME="C:\elasticsearch" `
+    ES_HOME="C:\elasticsearch" `
     ES_JAVA_OPTS="-Xms1024m -Xmx1024m"
 
 # Volume and drive mount
