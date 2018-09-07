@@ -2,7 +2,7 @@
 FROM microsoft/windowsservercore:ltsc2016 AS downloader
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ARG ES_VERSION="6.4.0"
+ARG ES_VERSION="5.6.11"
 ENV ES_HOME="C:\elasticsearch" `
     ES_ROOT_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss"
 
@@ -17,8 +17,9 @@ RUN Invoke-WebRequest "$env:ES_ROOT_URL-$env:ES_VERSION.zip.sha512" -OutFile 'el
 FROM openjdk:8-windowsservercore-ltsc2016
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
-ARG ES_VERSION="6.4.0"
-ENV ES_HOME="C:\elasticsearch" `
+ARG ES_VERSION="5.6.11"
+ENV ES_VERSION=${ES_VERSION} `
+     ES_HOME="C:\elasticsearch" `
     ES_JAVA_OPTS="-Xms1024m -Xmx1024m"
 
 # Volume and drive mount
