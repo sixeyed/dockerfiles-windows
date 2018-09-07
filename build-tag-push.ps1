@@ -53,7 +53,7 @@ $tags = @($fullTag,
           "$($registryUser)/$($imageName):$($osName)-$($branchName)",
           "$($registryUser)/$($imageName):latest")
 
-$registries = @('', "$($localRegistry)/")
+$registries = @("$($localRegistry)/", '')
 
 foreach ($tag in $tags) {        
     Write-Host "** Processing $tag"
