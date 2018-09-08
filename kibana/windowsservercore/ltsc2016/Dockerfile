@@ -2,13 +2,14 @@
 FROM microsoft/windowsservercore:ltsc2016 AS downloader
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ENV KIBANA_VERSION="5.6.0" `
-    KIBANA_HOME="C:\kibana"
+ARG KIBANA_VERSION="5.6.11"
+ENV KIBANA_HOME="C:\kibana" `
+    KIBANA_ROOT_URL="https://artifacts.elastic.co/downloads/kibana/kibana"
 
-RUN Invoke-WebRequest "https://artifacts.elastic.co/downloads/kibana/kibana-$($env:KIBANA_VERSION)-windows-x86.zip.sha1" -OutFile 'kibana.zip.sha1' -UseBasicParsing; `
-    $env:KIBANA_SHA1 = Get-Content -Raw kibana.zip.sha1; `
-    Invoke-WebRequest "https://artifacts.elastic.co/downloads/kibana/kibana-$($env:KIBANA_VERSION)-windows-x86.zip" -OutFile 'kibana.zip' -UseBasicParsing; `
-    if ((Get-FileHash kibana.zip -Algorithm sha1).Hash.ToLower() -ne $env:KIBANA_SHA1) {exit 1}; `
+RUN Invoke-WebRequest "$env:KIBANA_ROOT_URL-$env:KIBANA_VERSION-windows-x86.zip.sha512" -OutFile 'kibana.zip.sha' -UseBasicParsing; `
+    $env:KIBANA_SHA = (Get-Content -Raw kibana.zip.sha).Split(' ')[0]; `
+    Invoke-WebRequest "$env:KIBANA_ROOT_URL-$env:KIBANA_VERSION-windows-x86.zip" -OutFile 'kibana.zip' -UseBasicParsing; `
+    if ((Get-FileHash kibana.zip -Algorithm sha512).Hash.ToLower() -ne $env:KIBANA_SHA) {exit 1}; `
     Expand-Archive kibana.zip -DestinationPath C:\; `
     Move-Item c:/kibana-$($env:KIBANA_VERSION)-windows-x86 $env:KIBANA_HOME;
 
@@ -16,7 +17,8 @@ RUN Invoke-WebRequest "https://artifacts.elastic.co/downloads/kibana/kibana-$($e
 FROM microsoft/windowsservercore:ltsc2016
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
-ENV KIBANA_VERSION="5.6.0" `
+ARG KIBANA_VERSION="5.6.11"
+ENV KIBANA_VERSION=${KIBANA_VERSION} `
     KIBANA_HOME="C:\kibana"
 
 EXPOSE 5601
