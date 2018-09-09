@@ -22,7 +22,7 @@ ENV ES_HOME="C:\elasticsearch" `
     ES_JAVA_OPTS="-Xms512m -Xmx512m"
 
 # Volume and drive mount
-VOLUME C:\data
+RUN mkdir c:\data\
 RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'G:' -Value '\??\C:\data' -Type String    
    
 EXPOSE 9200 9300
