@@ -1,0 +1,37 @@
+version: '{build}'
+
+image: Visual Studio 2017
+
+environment:
+  DOCKER_USER:
+    secure: LJxMxZl1dCKgMF5FlErnwQ==
+  DOCKER_PASS:
+    secure: HASfuLeqW86zydzpb7/5Zg==
+  DOCKER_IMAGE_NAME: idubnori/elasticsearch:5.6.0-nanoserver-sac2016
+
+init:
+#  - ps: docker version
+#  - ps: docker info
+  - ps: docker images
+  - ps: |
+      cinst curl -y --no-progress
+      sal curl (Join-Path $env:ChocolateyInstall "bin\curl.exe") -O AllScope
+
+build_script:
+  - ps: |
+      cd $env:APPVEYOR_BUILD_FOLDER
+      cd .\elasticsearch\nanoserver\sac2016
+      docker build -t $env:DOCKER_IMAGE_NAME .
+      docker images
+
+test_script:
+  - ps: |
+      $cid = docker run -d $env:DOCKER_IMAGE_NAME
+      $hostip = docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" $cid
+      Start-Sleep -s 15
+      curl --connect-timeout 30 -sfL "http://${hostip}:9200/_cat/health"
+
+deploy_script:
+#  - ps: |
+#      echo $env:DOCKER_PASS | docker login -u $env:DOCKER_USER --password-stdin
+#      docker push $env:DOCKER_IMAGE_NAME
