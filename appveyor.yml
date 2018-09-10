@@ -7,7 +7,7 @@ environment:
     secure: LJxMxZl1dCKgMF5FlErnwQ==
   DOCKER_PASS:
     secure: HASfuLeqW86zydzpb7/5Zg==
-  DOCKER_IMAGE_NAME: idubnori/elasticsearch:5.6.0-nanoserver-sac2016
+  DOCKER_IMAGE_NAME: idubnori/elasticsearch:6.4.0-nanoserver-sac2016
 
 init:
 #  - ps: docker version

@@ -1,5 +1,5 @@
 # escape=`
-FROM microsoft/windowsservercore:ltsc2016 AS downloader
+FROM microsoft/windowsservercore AS downloader
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG ES_VERSION="6.4.0"
@@ -23,7 +23,7 @@ ENV ES_HOME="C:\elasticsearch" `
 
 # Volume and drive mount
 RUN mkdir c:\data\
-RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'G:' -Value '\??\C:\data' -Type String    
+#RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'G:' -Value '\??\C:\data' -Type String    
    
 EXPOSE 9200 9300
 SHELL ["cmd", "/S", "/C"]
