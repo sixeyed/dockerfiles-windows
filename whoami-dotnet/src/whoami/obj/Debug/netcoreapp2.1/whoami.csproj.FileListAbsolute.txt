@@ -1,0 +1,14 @@
+C:\scm\github\sixeyed\dockerfiles-windows\whoami-dotnet\src\whoami\bin\Debug\netcoreapp2.1\whoami.deps.json
+C:\scm\github\sixeyed\dockerfiles-windows\whoami-dotnet\src\whoami\bin\Debug\netcoreapp2.1\whoami.runtimeconfig.json
+C:\scm\github\sixeyed\dockerfiles-windows\whoami-dotnet\src\whoami\bin\Debug\netcoreapp2.1\whoami.runtimeconfig.dev.json
+C:\scm\github\sixeyed\dockerfiles-windows\whoami-dotnet\src\whoami\bin\Debug\netcoreapp2.1\whoami.dll
+C:\scm\github\sixeyed\dockerfiles-windows\whoami-dotnet\src\whoami\bin\Debug\netcoreapp2.1\whoami.pdb
+C:\scm\github\sixeyed\dockerfiles-windows\whoami-dotnet\src\whoami\obj\Debug\netcoreapp2.1\whoami.csprojAssemblyReference.cache
+C:\scm\github\sixeyed\dockerfiles-windows\whoami-dotnet\src\whoami\obj\Debug\netcoreapp2.1\whoami.csproj.CoreCompileInputs.cache
+C:\scm\github\sixeyed\dockerfiles-windows\whoami-dotnet\src\whoami\obj\Debug\netcoreapp2.1\whoami.RazorAssemblyInfo.cache
+C:\scm\github\sixeyed\dockerfiles-windows\whoami-dotnet\src\whoami\obj\Debug\netcoreapp2.1\whoami.RazorAssemblyInfo.cs
+C:\scm\github\sixeyed\dockerfiles-windows\whoami-dotnet\src\whoami\obj\Debug\netcoreapp2.1\whoami.AssemblyInfoInputs.cache
+C:\scm\github\sixeyed\dockerfiles-windows\whoami-dotnet\src\whoami\obj\Debug\netcoreapp2.1\whoami.AssemblyInfo.cs
+C:\scm\github\sixeyed\dockerfiles-windows\whoami-dotnet\src\whoami\obj\Debug\netcoreapp2.1\whoami.RazorTargetAssemblyInfo.cache
+C:\scm\github\sixeyed\dockerfiles-windows\whoami-dotnet\src\whoami\obj\Debug\netcoreapp2.1\whoami.dll
+C:\scm\github\sixeyed\dockerfiles-windows\whoami-dotnet\src\whoami\obj\Debug\netcoreapp2.1\whoami.pdb
