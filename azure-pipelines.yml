@@ -11,5 +11,5 @@ variables:
   imageVersion: '1.15.0'
 
 steps:
-- script: cd ./nginx/windowsservercore/ltsc2016; ./build-tag-push.ps1 -imageVersion $(imageVersion)
+- script: cd nginx\windowsservercore\ltsc2016 & powershell build-tag-push.ps1 -imageVersion $(imageVersion)
   displayName: 'build-tag-push'
