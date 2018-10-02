@@ -31,10 +31,12 @@ $osName = $path[$count-2]
 $imageName = $path[$count-3]
 $fullTag = "$($registryUser)/$($imageName):$($imageVersion)-$($osName)-$($branchName)"
 
-$buildArg=@()
-$buildArgsExpanded=$buildArgs.Split(',')
-foreach ($arg in $buildArgsExpanded){
-    $buildArg += "--build-arg", $arg
+if ($buildArgs.Length -gt 0) {
+    $buildArg=@()
+    $buildArgsExpanded=$buildArgs.Split(',')
+    foreach ($arg in $buildArgsExpanded){
+        $buildArg += "--build-arg", $arg
+    }
 }
 
 Write-Host "* Building image: $fullTag, with args: $buildArg"
