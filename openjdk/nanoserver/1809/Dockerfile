@@ -4,10 +4,10 @@ FROM mcr.microsoft.com/windows/servercore:1809 AS installer
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG JAVA_HOME="C:\ojdkbuild"
-ARG JAVA_VERSION="10.0.2"
-ARG JAVA_OJDKBUILD_VERSION="10.0.2-1"
-ARG JAVA_OJDKBUILD_ZIP="java-10-openjdk-10.0.2-1.b13.ojdkbuild.windows.x86_64.zip"
-ARG JAVA_OJDKBUILD_SHA256="39801db76f04b9f1491b0d0a64258535f14e319a3cd08d3e161b18a6af7a842d"
+ARG JAVA_VERSION="8u181"
+ARG JAVA_OJDKBUILD_VERSION="1.8.0.181-1"
+ARG JAVA_OJDKBUILD_ZIP="java-1.8.0-openjdk-1.8.0.181-1.b13.ojdkbuild.windows.x86_64.zip"
+ARG JAVA_OJDKBUILD_SHA256="dd7d2ea7951c06857523e95359e5e94630039a1eae5b5223e4b8c308afc95ebb"
 
 RUN $url = ('https://github.com/ojdkbuild/ojdkbuild/releases/download/{0}/{1}' -f $env:JAVA_OJDKBUILD_VERSION, $env:JAVA_OJDKBUILD_ZIP); \
 	Write-Host ('Downloading {0} ...' -f $url); \
@@ -32,8 +32,8 @@ RUN $url = ('https://github.com/ojdkbuild/ojdkbuild/releases/download/{0}/{1}' -
 FROM mcr.microsoft.com/windows/nanoserver:1809
 
 ARG JAVA_HOME="C:\ojdkbuild"
-ARG JAVA_VERSION="10.0.2"
-ARG JAVA_OJDKBUILD_VERSION="10.0.2-1"
+ARG JAVA_VERSION="8u181"
+ARG JAVA_OJDKBUILD_VERSION="1.8.0.181-1"
 
 ENV JAVA_HOME ${JAVA_HOME}
 ENV JAVA_VERSION ${JAVA_VERSION}

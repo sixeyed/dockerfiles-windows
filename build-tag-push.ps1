@@ -1,7 +1,7 @@
 param(    
     [string] $imageVersion='',
     [string] $registryUser='sixeyed',    
-    [string] $localRegistry='registry.sixeyed:5000',    
+    [string] $localRegistry='',    
     [string] $buildArgs='',
     [object[]] $dockerConfig
 )
@@ -13,7 +13,7 @@ param(
 #   - this command is executed from the {os-branch} directory
 # input:
 #   - imageVersion - version of the image being built
-#   - regsitryUser - registry username or organization
+#   - registryUser - registry username or organization
 #   - localRegistry - registry push destination, in addition to Docker Hub
 #   - buildArgs - comma separated values to pass as `build-arg` in Docker build
 # output:
@@ -25,6 +25,10 @@ param(
 
 $path = $(pwd).ToString().Split('\')
 $count = $path.Length
+
+if (($imageVersion -eq '') -and (Test-Path ..\..\imageVersion.txt)) {
+    $imageVersion = Get-Content ..\..\imageVersion.txt
+}
 
 $branchName = $path[$count-1]
 $osName = $path[$count-2]
@@ -55,7 +59,10 @@ $tags = @($fullTag,
           "$($registryUser)/$($imageName):$($osName)-$($branchName)",
           "$($registryUser)/$($imageName):latest")
 
-$registries = @("$($localRegistry)/", '')
+$registries = @('')
+if ($localRegistry -ne '') {
+    $registries += "$($localRegistry)/"
+}
 
 foreach ($tag in $tags) {        
     Write-Host "** Processing $tag"
