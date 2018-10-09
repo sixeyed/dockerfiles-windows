@@ -56,8 +56,7 @@ if (Test-Path ..\..\test.ps1) {
 
 Write-Host "* Pushing image tags for: $fullTag"
 $tags = @($fullTag,
-          "$($registryUser)/$($imageName):$($osName)-$($branchName)",
-          "$($registryUser)/$($imageName):latest")
+          "$($registryUser)/$($imageName):$($osName)-$($branchName)")
 
 $registries = @('')
 if ($localRegistry -ne '') {
