@@ -1,14 +1,12 @@
 # escape=`
-FROM sixeyed/git:2.15.1 AS git
-FROM sixeyed/docker-ee:17.06.2-ee AS docker
-FROM sixeyed/jenkins:2.89.2
+FROM  sixeyed/jenkins:2.121.1-windowsservercore-ltsc2016
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 WORKDIR C:\git
-COPY --from=git C:\git .
+COPY --from=sixeyed/git:2.17.1-windowsservercore-ltsc2016 C:\git .
 
 WORKDIR C:\docker
-COPY --from=docker ["C:\\Program Files\\Docker",  "."]
+COPY --from=sixeyed/docker-ee:18.03-windowsservercore-ltsc2016 ["C:\\Program Files\\Docker",  "."]
 
 RUN $env:PATH = 'C:\docker;' + 'C:\git\cmd;C:\git\mingw64\bin;C:\git\usr\bin;' + $env:PATH; `
 	[Environment]::SetEnvironmentVariable('PATH', $env:PATH, [EnvironmentVariableTarget]::Machine)
