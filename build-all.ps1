@@ -1,6 +1,7 @@
 param(    
     [string] $os='windowsservercore',
     [string] $osBranch='1809',
+    [bool] $ignoreTestFailures=$false,
     [object[]] $dockerConfig
 )
 
@@ -17,7 +18,12 @@ try {
         Write-Host "** Building $($_.FullName)"
         $path = $_.DirectoryName
         cd $path
-        ..\..\..\build-tag-push.ps1
+        if ($ignoreTestFailures) {
+            ..\..\..\build-tag-push.ps1 -ErrorAction SilentlyContinue
+        }
+        else{
+            ..\..\..\build-tag-push.ps1
+        }
     }
 }
 finally {
