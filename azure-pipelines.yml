@@ -8,5 +8,5 @@ pool:
 
 steps:
 - script: docker login -u $(hub-id) -p $(hub-password)
-- powershell: .\build-all -os windowsservercore -osBranch ltsc2016
+- powershell: .\build-all -os windowsservercore -osBranch ltsc2016 -ignoreTestFailures $true
   displayName: 'build-all-ltsc2016'
