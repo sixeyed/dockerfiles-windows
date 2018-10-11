@@ -6,10 +6,7 @@
 pool:
   vmImage: 'VS2017-Win2016'
 
-variables:
-  imageVersion: '1.15.0'
-
 steps:
 - script: docker login -u $(hub-id) -p $(hub-password)
-- powershell: cd nginx\windowsservercore\ltsc2016; ..\..\..\build-tag-push.ps1 -imageVersion $(imageVersion)
-  displayName: 'build-tag-push'
+- powershell: .\build-all -os windowsservercore -osBranch ltsc2016
+  displayName: 'build-all-ltsc2016'
