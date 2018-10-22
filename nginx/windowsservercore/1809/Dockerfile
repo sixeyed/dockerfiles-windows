@@ -1,5 +1,5 @@
 # escape=`
-FROM microsoft/windowsservercore:ltsc2016 AS installer
+FROM mcr.microsoft.com/windows/servercore:1809 AS installer
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG NGINX_VERSION="1.15.5"
@@ -10,7 +10,7 @@ RUN Write-Host "Downloading Nginx version: $env:NGINX_VERSION"; `
     Rename-Item "C:\nginx-$($env:NGINX_VERSION)" C:\nginx;
 
 # NGINX
-FROM microsoft/windowsservercore:ltsc2016
+FROM mcr.microsoft.com/windows/servercore:1809
 
 ARG NGINX_VERSION="1.15.5"
 ENV NGINX_VERSION ${NGINX_VERSION}
