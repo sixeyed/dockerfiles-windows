@@ -5,7 +5,7 @@ param(
     [object[]] $dockerConfig
 )
 
-$osAndBranch="$os\$osBranch"
+$osAndBranch="$os\$osBranch\"
 $startPath=$(pwd)
 
 $dockerfiles = Get-ChildItem -Filter Dockerfile -recurse | where {
@@ -18,12 +18,7 @@ try {
         Write-Host "** Building $($_.FullName)"
         $path = $_.DirectoryName
         cd $path
-        if ($ignoreTestFailures) {
-            ..\..\..\build-tag-push.ps1 -ErrorAction SilentlyContinue
-        }
-        else{
-            ..\..\..\build-tag-push.ps1
-        }
+        ..\..\..\build-tag-push.ps1 -ignoreTestFailures $ignoreTestFailures
     }
 }
 finally {

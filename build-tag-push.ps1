@@ -2,9 +2,12 @@ param(
     [string] $imageVersion='',
     [string] $registryUser='sixeyed',    
     [string] $localRegistry='',    
-    [string] $buildArgs='',
+    [string] $buildArgs='',    
+    [bool] $ignoreTestFailures=$false,
     [object[]] $dockerConfig
 )
+
+$ErrorActionPreference = 'SilentlyContinue'
 
 # builds and pushes Docker images
 # expectations:
@@ -49,7 +52,7 @@ Write-Host "* Building image: $fullTag, with args: $buildArg"
 if (Test-Path ..\..\test.ps1) {
     Write-Host '** Executing test script'
     ..\..\test.ps1 -imageTag $fullTag -dockerConfig $dockerConfig
-    if ($LastExitCode -ne 0) {
+    if (($LastExitCode -ne 0) -and ($ignoreTestFailures -eq $false)) {
         exit 1
     }
 }
