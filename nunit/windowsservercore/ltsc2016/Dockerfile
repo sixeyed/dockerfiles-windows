@@ -1,5 +1,5 @@
 # escape=`
-FROM microsoft/windowsservercore:10.0.14393.1480
+FROM microsoft/dotnet-framework:4.7.2-runtime
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ENV NUGET_PATH="C:\Chocolatey\lib\NuGet.CommandLine.3.5.0\tools" `
