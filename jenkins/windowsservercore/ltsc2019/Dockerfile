@@ -1,5 +1,5 @@
 # escape=`
-FROM mcr.microsoft.com/windows/servercore:1809 AS installer
+FROM mcr.microsoft.com/windows/servercore:ltsc2019 AS installer
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG JENKINS_VERSION="2.121.1"
@@ -13,7 +13,7 @@ RUN $env:JENKINS_SHA256=$(Get-Content -Raw jenkins.war.sha256).Split(' ')[0]; `
     if ((Get-FileHash jenkins.war -Algorithm sha256).Hash.ToLower() -ne $env:JENKINS_SHA256) {exit 1}
 
 # Jenkins
-FROM sixeyed/openjdk:8-windowsservercore-1809
+FROM sixeyed/openjdk:8-windowsservercore-ltsc2019
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
 ARG JENKINS_VERSION="2.121.1"

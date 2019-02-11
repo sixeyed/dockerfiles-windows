@@ -1,5 +1,5 @@
 #escape=`
-FROM mcr.microsoft.com/windows/servercore:1809 as installer
+FROM mcr.microsoft.com/windows/servercore:ltsc2019 as installer
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG GOGS_VERSION="0.11.66"

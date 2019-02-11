@@ -1,5 +1,5 @@
 # escape=`
-FROM sixeyed/chocolatey:windowsservercore-1809 AS installer
+FROM sixeyed/chocolatey:windowsservercore-ltsc2019 AS installer
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG DOCKER_VERSION="18.06.1"

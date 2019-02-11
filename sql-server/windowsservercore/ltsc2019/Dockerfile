@@ -1,5 +1,5 @@
 #escape=`
-FROM mcr.microsoft.com/windows/servercore:1809 
+FROM mcr.microsoft.com/windows/servercore:ltsc2019 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 # see https://support.microsoft.com/en-us/help/4462262 for latest CU

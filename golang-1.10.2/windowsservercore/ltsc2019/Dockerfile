@@ -2,8 +2,8 @@
 FROM mcr.microsoft.com/windows/servercore:ltsc2019 as installer
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ARG GOLANG_VERSION="1.11.1"
-ARG GOLANG_SHA256="230a08d4260ded9d769f072512a49bffe8bfaff8323e839c2db7cf7c9c788130"
+ARG GOLANG_VERSION="1.10.2"
+ARG GOLANG_SHA256="0fb4a893796e8151c0b8d0a3da4ed8cbb22bf6d98a3c29c915be4d7083f146ee"
 ARG GO_PATH="C:\go"
 ARG GOPATH="C:\gopath"
 
@@ -19,10 +19,10 @@ RUN if ((Get-FileHash go.zip -Algorithm sha256).Hash -ne $($env:GOLANG_SHA256)) 
 	Expand-Archive go.zip -DestinationPath C:\;
 
 # golang
-FROM mcr.microsoft.com/windows/nanoserver:1809
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
-ARG GOLANG_VERSION="1.11.1"
-ARG GOLANG_SHA256="230a08d4260ded9d769f072512a49bffe8bfaff8323e839c2db7cf7c9c788130"
+ARG GOLANG_VERSION="1.10.2"
+ARG GOLANG_SHA256="0fb4a893796e8151c0b8d0a3da4ed8cbb22bf6d98a3c29c915be4d7083f146ee"
 ARG GO_PATH="C:\go"
 ARG GOPATH="C:\gopath"
 

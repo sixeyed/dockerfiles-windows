@@ -1,6 +1,6 @@
 ## modified from official image 
 ## https://github.com/docker-library/openjdk/blob/7d6b0528da55c7b74feff4f565c9dbb8907b8c9a/10/jdk/windows/nanoserver-sac2016/Dockerfile
-FROM mcr.microsoft.com/windows/servercore:1809 AS installer
+FROM mcr.microsoft.com/windows/servercore:ltsc2019 AS installer
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG JAVA_HOME="C:\ojdkbuild"
@@ -29,7 +29,7 @@ RUN $url = ('https://github.com/ojdkbuild/ojdkbuild/releases/download/{0}/{1}' -
 	;
 
 # openjdk
-FROM mcr.microsoft.com/windows/servercore:1809
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
 ARG JAVA_HOME="C:\ojdkbuild"
 ARG JAVA_VERSION="8u181"

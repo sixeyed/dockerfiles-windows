@@ -1,6 +1,6 @@
 param(    
     [string] $os='windowsservercore',
-    [string] $osBranch='1809',
+    [string] $osBranch='ltsc2019',
     [bool] $ignoreTestFailures=$false,
     [object[]] $dockerConfig
 )

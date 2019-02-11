@@ -1,5 +1,5 @@
 # escape=`
-FROM mcr.microsoft.com/windows/servercore:1809 AS installer
+FROM mcr.microsoft.com/windows/servercore:ltsc2019 AS installer
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG GIT_VERSION="2.17.1"
@@ -15,7 +15,7 @@ RUN if ((Get-FileHash git.zip -Algorithm sha256).Hash -ne $env:GIT_DOWNLOAD_SHA2
 	Remove-Item git.zip -Force
 
 # Git
-FROM mcr.microsoft.com/windows/servercore:1809
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
 ARG GIT_VERSION="2.17.1"
