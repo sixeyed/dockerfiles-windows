@@ -1,5 +1,4 @@
-# escape=`
-FROM microsoft/dotnet:2.1-sdk-stretch as builder
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100 as builder
 
 WORKDIR /src/whoami
 COPY src/whoami/whoami.csproj .
@@ -9,7 +8,7 @@ COPY src /src
 RUN dotnet publish -c Release -o /out whoami.csproj
 
 # app image
-FROM microsoft/dotnet:2.1-aspnetcore-runtime-stretch-slim
+FROM  mcr.microsoft.com/dotnet/core/aspnet:3.0
 
 EXPOSE 80
 

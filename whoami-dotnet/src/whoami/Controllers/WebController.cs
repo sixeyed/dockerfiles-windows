@@ -6,16 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace whoami.Controllers
 {
+    [Produces("application/json")]
     [Route("/")]
-    [Controller]
-    public class WebController : ControllerBase
+    public class WebController : Controller
     {
+        private static string _Host = Dns.GetHostName();
+
         [HttpGet]
         public ActionResult<string> Get()
-        { 
-            var host = Dns.GetHostName();
+        {             
             var osDescription = RuntimeInformation.OSDescription;
-            return $"I'm {host} running on {osDescription}";
+            return $"I'm {_Host} running on {osDescription}";
         }
     }
 }
