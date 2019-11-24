@@ -1,5 +1,5 @@
 # escape=`
-FROM mcr.microsoft.com/windows/servercore:ltsc2019 AS installer
+FROM mcr.microsoft.com/windows/servercore:ltsc2019 AS downloader
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG KIBANA_VERSION="5.6.11"
