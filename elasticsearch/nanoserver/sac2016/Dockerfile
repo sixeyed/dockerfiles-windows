@@ -1,5 +1,5 @@
 # escape=`
-FROM microsoft/windowsservercore:ltsc2016 AS downloader
+FROM microsoft/windowsservercore AS downloader
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ARG ES_VERSION="5.6.11"
@@ -23,8 +23,8 @@ ENV ES_VERSION=${ES_VERSION} `
     ES_JAVA_OPTS="-Xms800m -Xmx800m"
 
 # Volume and drive mount
-VOLUME C:\data
-RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'G:' -Value '\??\C:\data' -Type String    
+RUN mkdir c:\data\
+#RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'G:' -Value '\??\C:\data' -Type String    
    
 EXPOSE 9200 9300
 SHELL ["cmd", "/S", "/C"]
