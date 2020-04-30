@@ -1,0 +1,1 @@
+docker build -t edgehog/windows/servercore/ltsc2016:2.26.2 .

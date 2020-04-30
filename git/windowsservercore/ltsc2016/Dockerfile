@@ -18,7 +18,7 @@ RUN if ((Get-FileHash git.zip -Algorithm sha256).Hash -ne $env:GIT_DOWNLOAD_SHA2
 FROM microsoft/windowsservercore:ltsc2016
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
-ARG GIT_VERSION="2.17.1"
+ARG GIT_VERSION="2.26.2"
 ENV GIT_VERSION=${GIT_VERSION} `
     GIT_PATH="C:\git\cmd;C:\git\mingw64\bin;C:\git\usr\bin;" 
 
