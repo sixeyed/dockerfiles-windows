@@ -1,8 +1,8 @@
 # escape=`
-FROM microsoft/windowsservercore AS installer
+FROM microsoft/windowsservercore:ltsc2016 AS installer
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ARG JENKINS_VERSION="2.121.1"
+ARG JENKINS_VERSION="2.222.3"
 
 WORKDIR C:\jenkins
 RUN Write-Host "Downloading Jenkins version: $env:JENKINS_VERSION"; `
@@ -16,7 +16,7 @@ RUN $env:JENKINS_SHA256=$(Get-Content -Raw jenkins.war.sha256).Split(' ')[0]; `
 FROM openjdk:8-windowsservercore-ltsc2016
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
-ARG JENKINS_VERSION="2.121.1"
+ARG JENKINS_VERSION="2.222.3"
 ENV JENKINS_VERSION=${JENKINS_VERSION} `
     JENKINS_HOME="G:\jenkins" `
     VOLUME_PATH="C:\data"
