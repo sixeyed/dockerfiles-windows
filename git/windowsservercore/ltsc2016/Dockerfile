@@ -27,4 +27,3 @@ RUN $env:PATH = $env:GIT_PATH + $env:PATH; `
 
 WORKDIR C:\git
 COPY --from=installer C:\git .
-
